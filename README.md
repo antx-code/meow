@@ -24,9 +24,8 @@ email related websites to find enterprise email. The support engine and site lis
 ## Install
 
 ```bash
-git clone https://github.com/antx-code/meow
+git clone https://github.com/antx-code/meow.git
 ```
-
 ## Install Dependencies
 ```shell
 poetry install
@@ -35,9 +34,6 @@ poetry install
 ## Usage
 When you use meow to collect more useful information, you can set config into config.yaml.
 
-```bash 
-
-```bash
 ### Meow Sample:
 
 #### command line sample:
