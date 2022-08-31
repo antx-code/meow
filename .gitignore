@@ -5,3 +5,4 @@ modules/dataset/__pycache__/
 modules/search/__pycache__/
 output/
 .idea/
+/poetry.lock
