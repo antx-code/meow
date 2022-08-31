@@ -27,10 +27,9 @@ def _load_files(modules):
 
 def _load_module():
     objects = []
-    modules = ['dataset', 'search']
+    modules = ['site', 'search']
     for module in modules:
         files = _load_files(module)
-        print(files)
         for file in files:
             mod = file.capitalize()
             try:
@@ -60,7 +59,7 @@ def dia(target: str):
         if len(email.split('@')[0]) < 2:
             continue
         email_list.append(email)
-    save2file(f'email_success', email_list)
+    save2file('email_success', email_list)
     end = time.time()
     logger.success(f'Found {len(email_list)} emails.')
     logger.success(f'Emails: {email_list}')

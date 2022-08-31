@@ -19,6 +19,8 @@ class Hunter():
             for result in results['emails']:
                 emails.append(result['value'])
         except Exception as e:
+            if '401 Client Error: Unauthorized' in str(e):
+                logger.error(f'Invalid Hunter API key.')
             if '429 Client Error: Too Many Requests' in str(e):
                 logger.error(f'Free search count for hunter was used up.')
         logger.success(f'Hunter module found {len(emails)} emails.')
