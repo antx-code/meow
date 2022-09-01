@@ -69,4 +69,4 @@ class Github(AioPoc):
 if __name__ == '__main__':
     # https://docs.github.com/en/rest/search#search-code
     mw = Github()
-    mw.run('autobio.com.cn')
+    mw.run('target.com')
