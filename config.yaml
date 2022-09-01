@@ -1,2 +1,4 @@
 Hunter:
   'your-api-key'
+Github:
+  'your-access-token'
