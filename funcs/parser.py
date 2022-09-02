@@ -18,9 +18,14 @@ def _clean(content: str):
 def extract_email(target: str, content: str):
     tmp_email = re.findall(r'[a-zA-Z0-9.\-_+#~!$&\',;=:]+' + '@' + r'[a-zA-Z0-9.-]*' + target, _clean(str(content)))
     email_list = []
-    for _ in tmp_email:
-        if _ not in email_list and _.split('@')[0] not in ('"', "'"):
-            email_list.append(_)
+    for email in tmp_email:
+        if email not in email_list and email.split('@')[0] not in ('"', "'"):
+            # 测试功能
+            if 'www' in email or '+' in email or '-' in email:
+                continue
+            if ',' in email:
+                email = email.split(',')[1]
+            email_list.append(email)
     return email_list
 
 

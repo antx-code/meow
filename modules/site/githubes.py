@@ -2,15 +2,17 @@ import asyncio
 from pocx import AioPoc
 from loguru import logger
 import base64
+import time
 from conf import CONF
 from funcs.parser import extract_email
+from github import Github
 
 
-class Github(AioPoc):
+class Githubes(AioPoc):
     @logger.catch(level='ERROR')
     def __init__(self):
-        super(Github, self).__init__()
-        self.name = 'Github'
+        super(Githubes, self).__init__()
+        self.name = 'Github Email Search'
         self.github_token = CONF['Github']
 
     @logger.catch(level='ERROR')
@@ -51,6 +53,9 @@ class Github(AioPoc):
             elif resp.status_code == 401:
                 logger.error('Invalid github access token for credentials.')
                 break
+            elif resp.status_code == 403:
+                logger.error('You have exceeded a secondary rate limit. Please wait a few minutes before you try again.')
+                break
             else:
                 logger.error(f'Github module got an error, error code: {resp.status_code}. Stop page: {page_num}.')
                 break
@@ -64,6 +69,33 @@ class Github(AioPoc):
         logger.success(f'Github module found {len(emails)} emails.')
         return emails
 
+    def poc_pygithub(self, target: str):
+        per_page_num = 100
+        gh = Github(self.github_token, per_page=per_page_num)
+        email = target.split('@')[1] if '@' in target else target
+        search_content = f'@{email}'
+        emails = []
+        try:
+            results = gh.search_code(search_content, sort='indexed', order='desc')
+            total_count = 1000 if int(results.totalCount) > 1000 else int(results.totalCount)
+            if total_count <= per_page_num:
+                for result in results:
+                    emails.extend(extract_email(email, result.decoded_content.decode('utf-8')))
+                    time.sleep(1)
+            else:
+                count = total_count % per_page_num
+                pages = (total_count // per_page_num) if count == 0 else (total_count // per_page_num) + 1
+                for page in range(1, pages + 1):
+                    for content in results.get_page(page):
+                        emails.extend(extract_email(email, content.decoded_content.decode()))
+                        time.sleep(1)
+        except Exception as e:
+            logger.error(f'PyGithub module got an error, exiting.')
+        if emails:
+            emails = list(set(emails))
+        logger.success(f'PyGithub module found {len(emails)} emails.')
+        return emails
+
     @logger.catch(level='ERROR')
     def dia(self, target: str):
         return asyncio.run(self.poc(target))
@@ -71,5 +103,6 @@ class Github(AioPoc):
 
 if __name__ == '__main__':
     # https://docs.github.com/en/rest/search#search-code
-    mw = Github()
+    # https://pygithub.readthedocs.io/en/latest/github.html?highlight=search_code#github.MainClass.Github.search_code
+    mw = Githubes()
     mw.run('target.com')

@@ -16,6 +16,7 @@ PyYAML = "^6.0"
 pyhunter = "^1.7"
 uvloop = "^0.16.0"
 typer = "^0.6.1"
+pygithub = "^1.55"
 
 [tool.poetry.dev-dependencies]
 
