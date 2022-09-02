@@ -48,6 +48,9 @@ class Github(AioPoc):
                     except Exception as e:
                         logger.error(f'Github module got an error, error code: {resp.status_code}. Stop page: {page_num}.')
                         break
+            elif resp.status_code == 401:
+                logger.error('Invalid github access token for credentials.')
+                break
             else:
                 logger.error(f'Github module got an error, error code: {resp.status_code}. Stop page: {page_num}.')
                 break
