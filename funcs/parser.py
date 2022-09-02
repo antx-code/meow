@@ -21,10 +21,8 @@ def extract_email(target: str, content: str):
     for email in tmp_email:
         if email not in email_list and email.split('@')[0] not in ('"', "'"):
             # 测试功能
-            if 'www' in email or '+' in email or '-' in email:
+            if 'www' in email or '+' in email or '-' in email or ',' in email:
                 continue
-            if ',' in email:
-                email = email.split(',')[1]
             email_list.append(email)
     return email_list
 
