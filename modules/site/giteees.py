@@ -39,6 +39,8 @@ class Giteees(AioPoc):
             while True:
                 base_url = f'https://gitee.com/api/v5/search/{scope}?access_token={self.gitee_token}&q={search_content}&page={page_num}&per_page={per_page_num}&order=desc'
                 resp = await self.aio_get(base_url)
+                if not resp:
+                    break
                 items = json.loads(resp.text)
                 if not items:
                     break
