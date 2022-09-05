@@ -48,9 +48,9 @@ class Giteees(AioPoc):
                 if page_num * per_page_num > limit_num:
                     break
                 await asyncio.sleep(0.5)
-        emails = list(set(emails))
+        if emails:
+            emails = list(set(emails))
         logger.success(f'Gitee module found {len(emails)} email.')
-        logger.success(emails)
         return emails
 
     @logger.catch(level='ERROR')

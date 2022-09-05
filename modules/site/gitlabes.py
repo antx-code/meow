@@ -50,7 +50,8 @@ class Gitlabes(AioPoc):
                 await asyncio.sleep(0.5)
         if 'none@none' in emails:
             emails.remove('none@none')
-        emails = list(set(emails))
+        if emails:
+            emails = list(set(emails))
         logger.success(f'Gitlab module found {len(emails)} emails.')
         return emails
 
