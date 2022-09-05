@@ -33,6 +33,7 @@ class Giteees(AioPoc):
         per_page_num = 50
         limit_num = 500
         if not await self.ping():
+            logger.success(f'Gitlab module found {len(emails)} emails.')
             return []
         for scope in scopes:
             while True:

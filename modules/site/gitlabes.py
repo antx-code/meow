@@ -33,7 +33,8 @@ class Gitlabes(AioPoc):
         limit_num = 100
         gl = Gitlab(private_token=self.gitlab_token)
         if not self.ping():
-            return 0, []
+            logger.success(f'Gitlab module found {len(emails)} emails.')
+            return []
         for scope in const.SearchScope:
             logger.debug(f'scope: {scope}')
             page_num = 1
