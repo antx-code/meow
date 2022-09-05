@@ -52,7 +52,7 @@ class GitlabES(AioPoc):
             results.remove('none@none')
         results = list(set(results))
         total_count = len(results)
-        logger.success(f'Gitlab module found {total_count} email related repo leak code records.')
+        logger.success(f'Gitlab module found {total_count} emails.')
         return total_count, results
 
     @logger.catch(level='ERROR')
