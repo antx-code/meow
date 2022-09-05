@@ -105,5 +105,5 @@ if __name__ == '__main__':
     # https://docs.github.com/en/rest/search#search-code
     # https://pygithub.readthedocs.io/en/latest/github.html?highlight=search_code#github.MainClass.Github.search_code
     mw = Githubes()
-    # mw.run('target.com')
-    mw.poc_pygithub('autobio.com.cn')
+    mw.run('target.com')
+    # mw.poc_pygithub('target.com')

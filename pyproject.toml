@@ -17,6 +17,7 @@ pyhunter = "^1.7"
 uvloop = "^0.16.0"
 typer = "^0.6.1"
 pygithub = "^1.55"
+python-gitlab = "^3.9.0"
 
 [tool.poetry.dev-dependencies]
 

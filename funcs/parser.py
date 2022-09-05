@@ -23,6 +23,8 @@ def extract_email(target: str, content: str):
             # 测试功能
             if 'www' in email or '+' in email or '-' in email or ',' in email:
                 continue
+            if '\'' in email:
+                email = email.replace('\'', '')
             email_list.append(email)
     return email_list
 

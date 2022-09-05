@@ -2,3 +2,5 @@ Hunter:
   'your-api-key'
 Github:
   'your-access-token'
+Gitlab:
+  'your-access-token'
