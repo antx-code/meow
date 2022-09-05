@@ -36,7 +36,6 @@ class Gitlabes(AioPoc):
             logger.success(f'Gitlab module found {len(emails)} emails.')
             return []
         for scope in const.SearchScope:
-            logger.debug(f'scope: {scope}')
             page_num = 1
             for item in gl.search(scope, search_content, iterator=True):
                 # 搜索条数限制

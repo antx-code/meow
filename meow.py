@@ -53,7 +53,10 @@ def dia(target: str):
     objs = _load_module()
     start = time.time()
     for obj in objs:
-        emails.extend(obj.dia(target))
+        obj_emails = obj.dia(target)
+        if not obj_emails:
+            continue
+        emails.extend(obj_emails)
     emails = list(set(emails))
     for email in emails:
         if len(email.split('@')[0]) < 2:
