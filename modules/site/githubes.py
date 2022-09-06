@@ -47,8 +47,11 @@ class Githubes(AioPoc):
                         content = rep.json()['content']
                         content = base64.b64decode(content).decode()
                         emails.extend(extract_email(email, content))
+                    except ConnectionError:
+                        logger.error(f'Github module got an connection error, error code: {resp.status_code}. Stop page: {page_num}. Continue...')
+                        continue
                     except Exception as e:
-                        logger.error(f'Github module got an error, error code: {resp.status_code}. Stop page: {page_num}.')
+                        logger.error(f'Github module got an error, error code: {resp.status_code}. Stop page: {page_num}. Break...')
                         break
             elif resp.status_code == 401:
                 logger.error('Invalid github access token for credentials.')
