@@ -57,3 +57,17 @@ from meow import dia
 if __name__ == '__main__':
     dia('target.com')
 ```
+
+#### python3 lib async sample:
+
+```python
+# Title: xxxxxxx
+# Author: antx
+# Email: wanglei@socmap.net
+
+from meow import aio_dia
+
+if __name__ == '__main__':
+    asyncio.run(aio_dia('target.com'))
+```
+

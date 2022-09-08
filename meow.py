@@ -44,6 +44,33 @@ def _load_module():
 
 
 @logger.catch(level='ERROR')
+async def aio_dia(target: str, is_save: bool = False):
+    logger.info(f'Welcome to Antx Email Finder Tool.')
+    logger.debug(f'Starting find {target} ......')
+    emails = []
+    email_list = []
+    objs = _load_module()
+    start = time.time()
+    for obj in objs:
+        obj_emails = await obj.poc(target)
+        if not obj_emails:
+            continue
+        emails.extend(obj_emails)
+    emails = list(set(emails))
+    for email in emails:
+        if len(email.split('@')[0]) < 2:
+            continue
+        email_list.append(email)
+    if is_save:
+        save2file(f'{target}_email_success', email_list)
+    end = time.time()
+    logger.success(f'Found {len(email_list)} emails.')
+    logger.success(f'Emails: {email_list}')
+    logger.success(f'All Task has been finished, cost {end - start} seconds.')
+    return email_list
+
+
+@logger.catch(level='ERROR')
 @app.command()
 def dia(target: str):
     logger.info(f'Welcome to Antx Email Finder Tool.')
